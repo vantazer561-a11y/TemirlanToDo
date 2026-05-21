@@ -33,6 +33,23 @@ xcodebuild \
 
 It also runs the XCTest target.
 
+## Sideloadly IPA Without Apple Developer
+
+The workflow also creates an unsigned device IPA for Sideloadly:
+
+1. Push the project to GitHub.
+2. Open `Actions` -> `iOS Build`.
+3. Open the latest successful run.
+4. Download the `TemirlanToDo-unsigned-ipa` artifact.
+5. Extract the downloaded artifact zip. Inside it is `TemirlanToDo-unsigned.ipa`.
+6. Open Sideloadly on Windows or macOS.
+7. Connect the iPhone by USB.
+8. Drag `TemirlanToDo-unsigned.ipa` into Sideloadly.
+9. Enter your Apple ID and start installation.
+10. On the iPhone, trust the developer profile in Settings if iOS asks for it.
+
+With a free Apple ID, the app usually needs to be reinstalled after 7 days. If the iPhone is on iOS 16 or newer and asks for Developer Mode, enable it in Settings and reboot the device.
+
 ## Signed IPA
 
 Unsigned simulator builds work immediately in GitHub Actions. To export a signed IPA, add Apple Developer signing secrets:
