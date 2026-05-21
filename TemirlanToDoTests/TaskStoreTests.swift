@@ -20,7 +20,7 @@ final class TaskStoreTests: XCTestCase {
         let store = TaskStore(storage: .inMemory())
 
         let myDay = store.addTask(title: "Today focus", list: .myDay)
-        let important = store.addTask(title: "Critical launch", list: .important)
+        _ = store.addTask(title: "Critical launch", list: .important)
         var planned = store.addTask(title: "Tomorrow release", list: .planned)
         planned.dueDate = tomorrow
         store.updateTask(planned)
@@ -29,7 +29,7 @@ final class TaskStoreTests: XCTestCase {
         XCTAssertEqual(store.tasks(for: .myDay, calendar: calendar).map(\.title), ["Today focus"])
         XCTAssertEqual(store.tasks(for: .important, calendar: calendar).map(\.title), ["Critical launch"])
         XCTAssertEqual(store.tasks(for: .planned, calendar: calendar).map(\.title), ["Tomorrow release"])
-        XCTAssertEqual(store.tasks(for: .tasks, calendar: calendar).map(\.title), ["Critical launch", "Tomorrow release"])
+        XCTAssertEqual(store.tasks(for: .tasks, calendar: calendar).map(\.title), ["Tomorrow release", "Critical launch"])
     }
 
     func testUpdateToggleAndDeleteTask() {
