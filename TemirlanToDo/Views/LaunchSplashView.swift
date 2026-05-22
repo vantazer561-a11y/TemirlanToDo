@@ -25,10 +25,11 @@ struct LaunchSplashView: View {
                         .fill(CyberpunkTheme.elevated)
                         .frame(width: 92, height: 92)
                         .overlay(
-                            Image("AppIcon")
+                            Image(systemName: "app.fill")
                                 .resizable()
                                 .scaledToFit()
-                                .clipShape(RoundedRectangle(cornerRadius: 22, style: .continuous))
+                                .padding(18)
+                                .foregroundColor(CyberpunkTheme.cyan)
                         )
                         .shadow(color: CyberpunkTheme.magenta.opacity(0.35), radius: 24)
                         .scaleEffect(markScale)
