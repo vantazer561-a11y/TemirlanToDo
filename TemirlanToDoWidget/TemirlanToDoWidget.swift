@@ -1,7 +1,7 @@
 import SwiftUI
 import WidgetKit
 
-private struct TodayWidgetSnapshot: Codable {
+fileprivate struct TodayWidgetSnapshot: Codable {
     var count: Int
     var titles: [String]
     var updatedAt: Date
@@ -9,7 +9,7 @@ private struct TodayWidgetSnapshot: Codable {
     static let empty = TodayWidgetSnapshot(count: 0, titles: [], updatedAt: Date())
 }
 
-private enum TodayWidgetSnapshotStore {
+fileprivate enum TodayWidgetSnapshotStore {
     static let appGroupIdentifier = "group.com.temirlan.todo"
     private static let key = "today_widget_snapshot"
 
