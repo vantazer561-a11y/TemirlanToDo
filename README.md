@@ -10,6 +10,7 @@ Temirlan To Do is a native iOS 15+ SwiftUI task app inspired by Microsoft To Do.
 - Add due dates and notes.
 - Local persistence in Application Support as JSON.
 - SwiftUI interface with dark cyberpunk styling and system iOS controls.
+- Personal AI Assistant powered by the OpenAI API.
 
 ## Project
 
@@ -49,6 +50,29 @@ The workflow also creates an unsigned device IPA for Sideloadly:
 10. On the iPhone, trust the developer profile in Settings if iOS asks for it.
 
 With a free Apple ID, the app usually needs to be reinstalled after 7 days. If the iPhone is on iOS 16 or newer and asks for Developer Mode, enable it in Settings and reboot the device.
+
+## AI Assistant
+
+The app includes a personal AI Assistant. It calls the OpenAI API directly from the iPhone and stores your API key in iOS Keychain.
+
+Get an API key here:
+
+[https://platform.openai.com/api-keys](https://platform.openai.com/api-keys)
+
+Important notes:
+
+- Do not commit your API key to GitHub.
+- Do not paste the key into source files.
+- Enter the key only inside the app's AI Assistant setup screen.
+- ChatGPT Plus and OpenAI API billing are separate. The API key usually requires billing or credits on OpenAI Platform.
+
+Assistant features:
+
+- Break a task into smaller steps.
+- Plan the day from current tasks.
+- Create tasks from natural language.
+- Improve task wording.
+- Preview suggested changes before applying them.
 
 ## Signed IPA
 

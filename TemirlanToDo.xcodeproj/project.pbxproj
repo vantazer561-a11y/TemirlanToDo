@@ -21,6 +21,14 @@
 		01000000000000000000000C /* TaskStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02000000000000000000000C /* TaskStoreTests.swift */; };
 		01000000000000000000000D /* TaskStorageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02000000000000000000000D /* TaskStorageTests.swift */; };
 		01000000000000000000000E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 020000000000000000000012 /* Assets.xcassets */; };
+		01000000000000000000000F /* AssistantModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 020000000000000000000013 /* AssistantModels.swift */; };
+		010000000000000000000010 /* KeychainStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 020000000000000000000014 /* KeychainStore.swift */; };
+		010000000000000000000011 /* OpenAIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 020000000000000000000015 /* OpenAIClient.swift */; };
+		010000000000000000000012 /* AssistantService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 020000000000000000000016 /* AssistantService.swift */; };
+		010000000000000000000013 /* AssistantView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 020000000000000000000017 /* AssistantView.swift */; };
+		010000000000000000000014 /* AISettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 020000000000000000000018 /* AISettingsView.swift */; };
+		010000000000000000000015 /* AssistantModelsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 020000000000000000000019 /* AssistantModelsTests.swift */; };
+		010000000000000000000016 /* AssistantActionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02000000000000000000001A /* AssistantActionsTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,6 +60,14 @@
 		020000000000000000000010 /* TemirlanToDo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TemirlanToDo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		020000000000000000000011 /* TemirlanToDoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TemirlanToDoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		020000000000000000000012 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		020000000000000000000013 /* AssistantModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssistantModels.swift; sourceTree = "<group>"; };
+		020000000000000000000014 /* KeychainStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainStore.swift; sourceTree = "<group>"; };
+		020000000000000000000015 /* OpenAIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenAIClient.swift; sourceTree = "<group>"; };
+		020000000000000000000016 /* AssistantService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssistantService.swift; sourceTree = "<group>"; };
+		020000000000000000000017 /* AssistantView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssistantView.swift; sourceTree = "<group>"; };
+		020000000000000000000018 /* AISettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AISettingsView.swift; sourceTree = "<group>"; };
+		020000000000000000000019 /* AssistantModelsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssistantModelsTests.swift; sourceTree = "<group>"; };
+		02000000000000000000001A /* AssistantActionsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssistantActionsTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,6 +105,7 @@
 				070000000000000000000004 /* Storage */,
 				070000000000000000000005 /* Stores */,
 				070000000000000000000006 /* Theme */,
+				07000000000000000000000A /* AI */,
 				070000000000000000000009 /* Views */,
 				020000000000000000000012 /* Assets.xcassets */,
 				02000000000000000000000E /* Info.plist */,
@@ -134,6 +151,8 @@
 			children = (
 				02000000000000000000000C /* TaskStoreTests.swift */,
 				02000000000000000000000D /* TaskStorageTests.swift */,
+				020000000000000000000019 /* AssistantModelsTests.swift */,
+				02000000000000000000001A /* AssistantActionsTests.swift */,
 				02000000000000000000000F /* Info.plist */,
 			);
 			path = TemirlanToDoTests;
@@ -156,8 +175,21 @@
 				020000000000000000000009 /* TaskRowView.swift */,
 				02000000000000000000000A /* AddTaskComposerView.swift */,
 				02000000000000000000000B /* TaskDetailView.swift */,
+				020000000000000000000017 /* AssistantView.swift */,
+				020000000000000000000018 /* AISettingsView.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		07000000000000000000000A /* AI */ = {
+			isa = PBXGroup;
+			children = (
+				020000000000000000000013 /* AssistantModels.swift */,
+				020000000000000000000014 /* KeychainStore.swift */,
+				020000000000000000000015 /* OpenAIClient.swift */,
+				020000000000000000000016 /* AssistantService.swift */,
+			);
+			path = AI;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -270,6 +302,12 @@
 				010000000000000000000009 /* TaskRowView.swift in Sources */,
 				01000000000000000000000A /* AddTaskComposerView.swift in Sources */,
 				01000000000000000000000B /* TaskDetailView.swift in Sources */,
+				01000000000000000000000F /* AssistantModels.swift in Sources */,
+				010000000000000000000010 /* KeychainStore.swift in Sources */,
+				010000000000000000000011 /* OpenAIClient.swift in Sources */,
+				010000000000000000000012 /* AssistantService.swift in Sources */,
+				010000000000000000000013 /* AssistantView.swift in Sources */,
+				010000000000000000000014 /* AISettingsView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -279,6 +317,8 @@
 			files = (
 				01000000000000000000000C /* TaskStoreTests.swift in Sources */,
 				01000000000000000000000D /* TaskStorageTests.swift in Sources */,
+				010000000000000000000015 /* AssistantModelsTests.swift in Sources */,
+				010000000000000000000016 /* AssistantActionsTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

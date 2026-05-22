@@ -29,6 +29,31 @@ struct RootView: View {
                         .textCase(nil)
                         .padding(.vertical, 12)
                     }
+
+                    Section {
+                        NavigationLink(destination: AssistantView()) {
+                            HStack(spacing: 14) {
+                                ZStack {
+                                    RoundedRectangle(cornerRadius: 12, style: .continuous)
+                                        .fill(CyberpunkTheme.cyan.opacity(0.18))
+                                        .frame(width: 44, height: 44)
+                                    Image(systemName: "sparkles")
+                                        .font(.system(size: 18, weight: .semibold))
+                                        .foregroundColor(CyberpunkTheme.cyan)
+                                }
+
+                                VStack(alignment: .leading, spacing: 3) {
+                                    Text("AI Assistant")
+                                        .font(.headline)
+                                    Text("Plan with OpenAI")
+                                        .font(.caption)
+                                        .foregroundColor(.secondary)
+                                }
+                            }
+                            .padding(.vertical, 6)
+                        }
+                        .listRowBackground(Color.clear)
+                    }
                 }
                 .listStyle(.insetGrouped)
             }
