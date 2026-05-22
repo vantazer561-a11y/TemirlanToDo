@@ -240,7 +240,9 @@ struct AssistantView: View {
                 }
             } catch {
                 await MainActor.run {
-                    errorMessage = error.localizedDescription
+                    errorMessage = [error.localizedDescription, (error as? LocalizedError)?.failureReason]
+                        .compactMap { $0 }
+                        .joined(separator: "\n")
                     isLoading = false
                 }
             }

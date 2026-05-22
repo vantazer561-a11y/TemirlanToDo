@@ -74,6 +74,23 @@ Assistant features:
 - Improve task wording.
 - Preview suggested changes before applying them.
 
+### OpenAI 429 Error
+
+If the app shows `OpenAI returned 429`, check these OpenAI Platform pages:
+
+- Billing: [https://platform.openai.com/settings/organization/billing](https://platform.openai.com/settings/organization/billing)
+- Usage: [https://platform.openai.com/usage](https://platform.openai.com/usage)
+- Limits: [https://platform.openai.com/settings/organization/limits](https://platform.openai.com/settings/organization/limits)
+
+Common causes:
+
+- No API credits or billing method on OpenAI Platform.
+- Monthly usage limit reached.
+- Requests are being sent too quickly.
+- The selected model is limited for the current usage tier.
+
+ChatGPT subscription does not automatically pay for OpenAI API usage.
+
 ## Signed IPA
 
 Unsigned simulator builds work immediately in GitHub Actions. To export a signed IPA, add Apple Developer signing secrets:

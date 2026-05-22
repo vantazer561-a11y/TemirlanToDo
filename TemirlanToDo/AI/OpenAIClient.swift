@@ -23,7 +23,10 @@ public final class OpenAIClient {
             throw OpenAIClientError.invalidResponse
         }
         guard (200..<300).contains(httpResponse.statusCode) else {
-            throw OpenAIClientError.apiError(statusCode: httpResponse.statusCode, message: String(data: data, encoding: .utf8))
+            throw OpenAIClientError.apiError(
+                statusCode: httpResponse.statusCode,
+                message: OpenAIErrorEnvelope.message(from: data)
+            )
         }
 
         let envelope = try JSONDecoder().decode(OpenAIResponseEnvelope.self, from: data)
@@ -62,6 +65,23 @@ public final class OpenAIClient {
     }
 }
 
+private struct OpenAIErrorEnvelope: Decodable {
+    struct APIError: Decodable {
+        var message: String?
+        var type: String?
+        var code: String?
+    }
+
+    var error: APIError?
+
+    static func message(from data: Data) -> String? {
+        if let envelope = try? JSONDecoder().decode(OpenAIErrorEnvelope.self, from: data) {
+            return envelope.error?.message ?? envelope.error?.code ?? envelope.error?.type
+        }
+        return String(data: data, encoding: .utf8)
+    }
+}
+
 public enum OpenAIClientError: LocalizedError {
     case invalidResponse
     case apiError(statusCode: Int, message: String?)
@@ -75,9 +95,21 @@ public enum OpenAIClientError: LocalizedError {
             if statusCode == 401 {
                 return "OpenAI rejected the API key. Check and save the key again."
             }
+            if statusCode == 429 {
+                return "OpenAI returned 429. Check your OpenAI Platform billing, credits, monthly usage limit, and model rate limits. If billing is active, wait a little and try again."
+            }
             return "OpenAI request failed with status \(statusCode)."
         case .missingOutputText:
             return "OpenAI did not return assistant output."
+        }
+    }
+
+    public var failureReason: String? {
+        switch self {
+        case .apiError(_, let message):
+            return message
+        default:
+            return nil
         }
     }
 }
