@@ -28,9 +28,9 @@ struct AssistantView: View {
         }
         .navigationTitle("AI Assistant")
         .navigationBarTitleDisplayMode(.inline)
-        .toolbar {
-            if hasAPIKey {
-                ToolbarItem(placement: .navigationBarTrailing) {
+        .navigationBarItems(trailing:
+            Group {
+                if hasAPIKey {
                     Button {
                         showingSettings = true
                     } label: {
@@ -38,7 +38,7 @@ struct AssistantView: View {
                     }
                 }
             }
-        }
+        )
         .sheet(isPresented: $showingSettings) {
             NavigationView {
                 AISettingsManagementView(service: service) {
@@ -252,13 +252,13 @@ struct AssistantView: View {
         case .general:
             return ""
         case .breakDown:
-            return "Разбей эту задачу на понятные шаги: "
+            return "Break this task into clear steps: "
         case .planDay:
-            return "Составь план на сегодня из моих текущих задач."
+            return "Make a plan for today from my current tasks."
         case .createTasks:
-            return "Создай задачи из этого текста: "
+            return "Create tasks from this text: "
         case .improveWording:
-            return "Улучши формулировку этой задачи: "
+            return "Improve the wording of this task: "
         }
     }
 
