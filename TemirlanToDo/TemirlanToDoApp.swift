@@ -3,11 +3,19 @@ import SwiftUI
 @main
 struct TemirlanToDoApp: App {
     @StateObject private var store = TaskStore()
+    @State private var showingSplash = true
 
     var body: some Scene {
         WindowGroup {
-            RootView()
-                .environmentObject(store)
+            ZStack {
+                RootView()
+                    .environmentObject(store)
+
+                if showingSplash {
+                    LaunchSplashView(isVisible: $showingSplash)
+                        .transition(.opacity)
+                }
+            }
         }
     }
 }

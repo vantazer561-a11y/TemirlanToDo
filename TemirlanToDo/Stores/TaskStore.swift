@@ -78,6 +78,7 @@ public final class TaskStore: ObservableObject {
     public func save() {
         do {
             try storage.saveTasks(tasks)
+            saveTodayWidgetSnapshot()
             lastErrorMessage = nil
         } catch {
             lastErrorMessage = "Could not save the latest changes."
@@ -170,5 +171,16 @@ public final class TaskStore: ObservableObject {
         formatter.locale = Locale(identifier: "en_US_POSIX")
         formatter.dateFormat = "yyyy-MM-dd"
         return formatter.date(from: value)
+    }
+
+    private func saveTodayWidgetSnapshot(calendar: Calendar = .current) {
+        let todayTasks = tasks
+            .filter { !$0.isCompleted && TaskListKind.myDay.contains($0, calendar: calendar) }
+            .prefix(3)
+        let allTodayCount = tasks.filter { !$0.isCompleted && TaskListKind.myDay.contains($0, calendar: calendar) }.count
+        TodayWidgetSnapshotStore.save(TodayWidgetSnapshot(
+            count: allTodayCount,
+            titles: todayTasks.map(\.title)
+        ))
     }
 }

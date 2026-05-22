@@ -29,6 +29,10 @@
 		010000000000000000000014 /* AISettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 020000000000000000000018 /* AISettingsView.swift */; };
 		010000000000000000000015 /* AssistantModelsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 020000000000000000000019 /* AssistantModelsTests.swift */; };
 		010000000000000000000016 /* AssistantActionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02000000000000000000001A /* AssistantActionsTests.swift */; };
+		010000000000000000000017 /* TodayWidgetSnapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02000000000000000000001B /* TodayWidgetSnapshot.swift */; };
+		010000000000000000000018 /* LaunchSplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02000000000000000000001C /* LaunchSplashView.swift */; };
+		010000000000000000000019 /* TemirlanToDoWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02000000000000000000001D /* TemirlanToDoWidget.swift */; };
+		01000000000000000000001A /* TemirlanToDoWidget.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 02000000000000000000001F /* TemirlanToDoWidget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, CodeSignOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -39,7 +43,28 @@
 			remoteGlobalIDString = 050000000000000000000001;
 			remoteInfo = TemirlanToDo;
 		};
+		030000000000000000000002 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 040000000000000000000001 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 050000000000000000000003;
+			remoteInfo = TemirlanToDoWidget;
+		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		0C0000000000000000000001 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				01000000000000000000001A /* TemirlanToDoWidget.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		020000000000000000000001 /* TemirlanToDoApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemirlanToDoApp.swift; sourceTree = "<group>"; };
@@ -68,6 +93,11 @@
 		020000000000000000000018 /* AISettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AISettingsView.swift; sourceTree = "<group>"; };
 		020000000000000000000019 /* AssistantModelsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssistantModelsTests.swift; sourceTree = "<group>"; };
 		02000000000000000000001A /* AssistantActionsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssistantActionsTests.swift; sourceTree = "<group>"; };
+		02000000000000000000001B /* TodayWidgetSnapshot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayWidgetSnapshot.swift; sourceTree = "<group>"; };
+		02000000000000000000001C /* LaunchSplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchSplashView.swift; sourceTree = "<group>"; };
+		02000000000000000000001D /* TemirlanToDoWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemirlanToDoWidget.swift; sourceTree = "<group>"; };
+		02000000000000000000001E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		02000000000000000000001F /* TemirlanToDoWidget.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = TemirlanToDoWidget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,6 +115,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		060000000000000000000003 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -93,6 +130,7 @@
 			children = (
 				070000000000000000000002 /* TemirlanToDo */,
 				070000000000000000000007 /* TemirlanToDoTests */,
+				07000000000000000000000B /* TemirlanToDoWidget */,
 				070000000000000000000008 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -118,6 +156,7 @@
 			children = (
 				020000000000000000000002 /* TaskItem.swift */,
 				020000000000000000000003 /* TaskListKind.swift */,
+				02000000000000000000001B /* TodayWidgetSnapshot.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -163,6 +202,7 @@
 			children = (
 				020000000000000000000010 /* TemirlanToDo.app */,
 				020000000000000000000011 /* TemirlanToDoTests.xctest */,
+				02000000000000000000001F /* TemirlanToDoWidget.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -177,6 +217,7 @@
 				02000000000000000000000B /* TaskDetailView.swift */,
 				020000000000000000000017 /* AssistantView.swift */,
 				020000000000000000000018 /* AISettingsView.swift */,
+				02000000000000000000001C /* LaunchSplashView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -192,6 +233,15 @@
 			path = AI;
 			sourceTree = "<group>";
 		};
+		07000000000000000000000B /* TemirlanToDoWidget */ = {
+			isa = PBXGroup;
+			children = (
+				02000000000000000000001D /* TemirlanToDoWidget.swift */,
+				02000000000000000000001E /* Info.plist */,
+			);
+			path = TemirlanToDoWidget;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -202,10 +252,12 @@
 				080000000000000000000001 /* Sources */,
 				060000000000000000000001 /* Frameworks */,
 				080000000000000000000002 /* Resources */,
+				0C0000000000000000000001 /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				0A0000000000000000000002 /* PBXTargetDependency */,
 			);
 			name = TemirlanToDo;
 			productName = TemirlanToDo;
@@ -230,6 +282,23 @@
 			productReference = 020000000000000000000011 /* TemirlanToDoTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		050000000000000000000003 /* TemirlanToDoWidget */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 090000000000000000000004 /* Build configuration list for PBXNativeTarget "TemirlanToDoWidget" */;
+			buildPhases = (
+				080000000000000000000005 /* Sources */,
+				060000000000000000000003 /* Frameworks */,
+				080000000000000000000006 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = TemirlanToDoWidget;
+			productName = TemirlanToDoWidget;
+			productReference = 02000000000000000000001F /* TemirlanToDoWidget.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -246,6 +315,9 @@
 					050000000000000000000002 = {
 						CreatedOnToolsVersion = 15.2;
 						TestTargetID = 050000000000000000000001;
+					};
+					050000000000000000000003 = {
+						CreatedOnToolsVersion = 15.2;
 					};
 				};
 			};
@@ -264,6 +336,7 @@
 			targets = (
 				050000000000000000000001 /* TemirlanToDo */,
 				050000000000000000000002 /* TemirlanToDoTests */,
+				050000000000000000000003 /* TemirlanToDoWidget */,
 			);
 		};
 /* End PBXProject section */
@@ -278,6 +351,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		080000000000000000000004 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		080000000000000000000006 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -308,6 +388,8 @@
 				010000000000000000000012 /* AssistantService.swift in Sources */,
 				010000000000000000000013 /* AssistantView.swift in Sources */,
 				010000000000000000000014 /* AISettingsView.swift in Sources */,
+				010000000000000000000017 /* TodayWidgetSnapshot.swift in Sources */,
+				010000000000000000000018 /* LaunchSplashView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -322,6 +404,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		080000000000000000000005 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				010000000000000000000019 /* TemirlanToDoWidget.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -329,6 +419,11 @@
 			isa = PBXTargetDependency;
 			target = 050000000000000000000001 /* TemirlanToDo */;
 			targetProxy = 030000000000000000000001 /* PBXContainerItemProxy */;
+		};
+		0A0000000000000000000002 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 050000000000000000000003 /* TemirlanToDoWidget */;
+			targetProxy = 030000000000000000000002 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -539,6 +634,58 @@
 			};
 			name = Release;
 		};
+		0B0000000000000000000007 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = TemirlanToDoWidget/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.temirlan.todo.widget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		0B0000000000000000000008 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = TemirlanToDoWidget/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.temirlan.todo.widget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -565,6 +712,15 @@
 			buildConfigurations = (
 				0B0000000000000000000005 /* Debug */,
 				0B0000000000000000000006 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		090000000000000000000004 /* Build configuration list for PBXNativeTarget "TemirlanToDoWidget" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0B0000000000000000000007 /* Debug */,
+				0B0000000000000000000008 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
