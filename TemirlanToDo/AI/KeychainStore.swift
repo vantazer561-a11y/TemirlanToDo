@@ -4,8 +4,8 @@ import Security
 public final class KeychainStore {
     public static let shared = KeychainStore()
 
-    private let service = "com.temirlan.todo.openai"
-    private let account = "openai_api_key"
+    private let service = "com.temirlan.todo.fireworks"
+    private let account = "fireworks_api_key"
 
     public init() {}
 

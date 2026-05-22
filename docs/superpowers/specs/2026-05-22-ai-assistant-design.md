@@ -2,16 +2,16 @@
 
 ## Summary
 
-Temirlan To Do will add an AI Assistant for personal use. The assistant will call the OpenAI API directly from the iOS app. The OpenAI API key will not be committed to the repository or hard-coded in source files. The user will enter the key inside the app, and the app will store it in iOS Keychain.
+Temirlan To Do will add an AI Assistant for personal use. The assistant will call Fireworks directly from the iOS app. The Fireworks API key will not be committed to the repository or hard-coded in source files. The user will enter the key inside the app, and the app will store it in iOS Keychain.
 
 The assistant will help turn natural language into actionable tasks, break large tasks into smaller steps, improve task wording, and suggest a daily plan from existing tasks.
 
 ## Goals
 
 - Add a personal AI Assistant screen to the app.
-- Store the OpenAI API key securely in Keychain.
-- Use OpenAI Responses API from Swift with `URLSession`.
-- Send current task context and the user's assistant request to OpenAI.
+- Store the Fireworks API key securely in Keychain.
+- Use Fireworks OpenAI-compatible Chat Completions API from Swift with `URLSession`.
+- Send current task context and the user's assistant request to Fireworks.
 - Parse structured JSON suggestions from the model.
 - Show suggested changes before applying them.
 - Apply task changes only after explicit user confirmation.
@@ -26,7 +26,7 @@ The assistant will help turn natural language into actionable tasks, break large
 
 ## User Experience
 
-The app will include an AI Assistant entry point from the main navigation. If no API key is saved, the screen will show a setup state with a secure text field, a short explanation, and a link to the OpenAI API keys page.
+The app will include an AI Assistant entry point from the main navigation. If no API key is saved, the screen will show a setup state with a secure text field, a short explanation, and a link to the Fireworks API keys page.
 
 After setup, the assistant screen will show:
 
@@ -57,10 +57,10 @@ For safety and user control, every action is previewed before it is applied.
 
 New files:
 
-- `TemirlanToDo/AI/KeychainStore.swift`: small wrapper for saving, loading, and deleting the OpenAI API key.
-- `TemirlanToDo/AI/OpenAIClient.swift`: URLSession client for the OpenAI Responses API.
+- `TemirlanToDo/AI/KeychainStore.swift`: small wrapper for saving, loading, and deleting the Fireworks API key.
+- `TemirlanToDo/AI/FireworksClient.swift`: URLSession client for the Fireworks Chat Completions API.
 - `TemirlanToDo/AI/AssistantModels.swift`: request and response DTOs for assistant suggestions.
-- `TemirlanToDo/AI/AssistantService.swift`: builds prompts from tasks, calls `OpenAIClient`, and decodes structured output.
+- `TemirlanToDo/AI/AssistantService.swift`: builds prompts from tasks, calls `FireworksClient`, and decodes structured output.
 - `TemirlanToDo/Views/AssistantView.swift`: main assistant UI.
 - `TemirlanToDo/Views/AISettingsView.swift`: API key setup and deletion UI.
 
@@ -70,29 +70,27 @@ Modified files:
 - `TemirlanToDo/Stores/TaskStore.swift`: add methods for applying assistant suggestions.
 - `TemirlanToDo.xcodeproj/project.pbxproj`: include new Swift files.
 
-## OpenAI API
+## Fireworks API
 
 The app will call:
 
-`https://api.openai.com/v1/responses`
+`https://api.fireworks.ai/inference/v1/chat/completions`
 
 The request will use:
 
-- Authorization header: `Bearer <key from Keychain>`.
+- Authorization header: `Bearer <Fireworks key from Keychain>`.
 - JSON request body.
-- Model: `gpt-5.5`.
-- Reasoning effort: `low`, because task planning needs some reasoning but should stay responsive.
-- Text verbosity: `low`, because the app needs concise assistant messages and structured task actions.
-- Structured output through JSON schema so the app can decode suggestions reliably.
+- Model: `accounts/fireworks/routers/kimi-k2p6-turbo`.
+- Response format: JSON object, with prompt-enforced structured fields so the app can decode suggestions reliably.
 
 The assistant prompt will instruct the model to act only as a productivity helper for the user's tasks. It should avoid pretending that suggested actions have already been applied.
 
 ## Data Flow
 
-1. User enters or saves an OpenAI API key in the settings screen.
+1. User enters or saves a Fireworks API key in the settings screen.
 2. User opens AI Assistant and enters a request.
 3. `AssistantService` collects relevant tasks from `TaskStore`.
-4. `OpenAIClient` sends the prompt and task context to OpenAI.
+4. `FireworksClient` sends the prompt and task context to Fireworks.
 5. The response is decoded into `AssistantResponse`.
 6. The app shows a preview of proposed actions.
 7. User taps Apply.
@@ -103,7 +101,7 @@ The assistant prompt will instruct the model to act only as a productivity helpe
 - If no API key exists, show setup UI.
 - If the API key is invalid, show a clear authentication error and let the user replace the key.
 - If the network is unavailable, show a retryable network error.
-- If OpenAI returns malformed or unsupported JSON, show the assistant message as text and do not apply actions.
+- If Fireworks returns malformed or unsupported JSON, show the assistant message as text and do not apply actions.
 - If saving tasks fails after applying suggestions, keep the existing storage alert behavior.
 
 ## Security Notes

@@ -37,24 +37,21 @@ final class AssistantModelsTests: XCTestCase {
         XCTAssertEqual(response.actions.last?.type, .messageOnly)
     }
 
-    func testResponseEnvelopeExtractsOutputText() throws {
+    func testFireworksChatCompletionEnvelopeExtractsOutputText() throws {
         let json = """
         {
-          "output": [
+          "choices": [
             {
-              "type": "message",
-              "content": [
-                {
-                  "type": "output_text",
-                  "text": "{\\"message\\":\\"Done\\",\\"actions\\":[]}"
-                }
-              ]
+              "message": {
+                "role": "assistant",
+                "content": "{\\"message\\":\\"Done\\",\\"actions\\":[]}"
+              }
             }
           ]
         }
         """
 
-        let envelope = try JSONDecoder().decode(OpenAIResponseEnvelope.self, from: Data(json.utf8))
+        let envelope = try JSONDecoder().decode(FireworksChatCompletionEnvelope.self, from: Data(json.utf8))
 
         XCTAssertEqual(envelope.outputText, "{\"message\":\"Done\",\"actions\":[]}")
     }

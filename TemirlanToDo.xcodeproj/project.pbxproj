@@ -23,7 +23,7 @@
 		01000000000000000000000E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 020000000000000000000012 /* Assets.xcassets */; };
 		01000000000000000000000F /* AssistantModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 020000000000000000000013 /* AssistantModels.swift */; };
 		010000000000000000000010 /* KeychainStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 020000000000000000000014 /* KeychainStore.swift */; };
-		010000000000000000000011 /* OpenAIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 020000000000000000000015 /* OpenAIClient.swift */; };
+		010000000000000000000011 /* FireworksClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 020000000000000000000015 /* FireworksClient.swift */; };
 		010000000000000000000012 /* AssistantService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 020000000000000000000016 /* AssistantService.swift */; };
 		010000000000000000000013 /* AssistantView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 020000000000000000000017 /* AssistantView.swift */; };
 		010000000000000000000014 /* AISettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 020000000000000000000018 /* AISettingsView.swift */; };
@@ -62,7 +62,7 @@
 		020000000000000000000012 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		020000000000000000000013 /* AssistantModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssistantModels.swift; sourceTree = "<group>"; };
 		020000000000000000000014 /* KeychainStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainStore.swift; sourceTree = "<group>"; };
-		020000000000000000000015 /* OpenAIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenAIClient.swift; sourceTree = "<group>"; };
+		020000000000000000000015 /* FireworksClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FireworksClient.swift; sourceTree = "<group>"; };
 		020000000000000000000016 /* AssistantService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssistantService.swift; sourceTree = "<group>"; };
 		020000000000000000000017 /* AssistantView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssistantView.swift; sourceTree = "<group>"; };
 		020000000000000000000018 /* AISettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AISettingsView.swift; sourceTree = "<group>"; };
@@ -186,7 +186,7 @@
 			children = (
 				020000000000000000000013 /* AssistantModels.swift */,
 				020000000000000000000014 /* KeychainStore.swift */,
-				020000000000000000000015 /* OpenAIClient.swift */,
+				020000000000000000000015 /* FireworksClient.swift */,
 				020000000000000000000016 /* AssistantService.swift */,
 			);
 			path = AI;
@@ -304,7 +304,7 @@
 				01000000000000000000000B /* TaskDetailView.swift in Sources */,
 				01000000000000000000000F /* AssistantModels.swift in Sources */,
 				010000000000000000000010 /* KeychainStore.swift in Sources */,
-				010000000000000000000011 /* OpenAIClient.swift in Sources */,
+				010000000000000000000011 /* FireworksClient.swift in Sources */,
 				010000000000000000000012 /* AssistantService.swift in Sources */,
 				010000000000000000000013 /* AssistantView.swift in Sources */,
 				010000000000000000000014 /* AISettingsView.swift in Sources */,

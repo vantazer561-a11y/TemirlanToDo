@@ -60,22 +60,20 @@ public enum AssistantActionType: String, Codable {
     case messageOnly = "message_only"
 }
 
-public struct OpenAIResponseEnvelope: Decodable {
-    struct Output: Decodable {
-        var content: [Content]?
+public struct FireworksChatCompletionEnvelope: Decodable {
+    struct Choice: Decodable {
+        var message: Message?
     }
 
-    struct Content: Decodable {
-        var text: String?
+    struct Message: Decodable {
+        var content: String?
     }
 
-    var output: [Output]
+    var choices: [Choice]
 
     public var outputText: String? {
-        output
-            .compactMap(\.content)
-            .flatMap { $0 }
-            .compactMap(\.text)
+        choices
+            .compactMap { $0.message?.content }
             .first
     }
 }

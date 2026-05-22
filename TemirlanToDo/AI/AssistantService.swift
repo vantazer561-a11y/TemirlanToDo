@@ -1,10 +1,10 @@
 import Foundation
 
 public final class AssistantService {
-    private let client: OpenAIClient
+    private let client: FireworksClient
     private let keychain: KeychainStore
 
-    public init(client: OpenAIClient = OpenAIClient(), keychain: KeychainStore = .shared) {
+    public init(client: FireworksClient = FireworksClient(), keychain: KeychainStore = .shared) {
         self.client = client
         self.keychain = keychain
     }
@@ -128,7 +128,7 @@ public enum AssistantServiceError: LocalizedError {
     public var errorDescription: String? {
         switch self {
         case .missingAPIKey:
-            return "Save an OpenAI API key before using the assistant."
+            return "Save a Fireworks API key before using the assistant."
         }
     }
 }

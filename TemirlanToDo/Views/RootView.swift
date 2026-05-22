@@ -45,7 +45,7 @@ struct RootView: View {
                                 VStack(alignment: .leading, spacing: 3) {
                                     Text("AI Assistant")
                                         .font(.headline)
-                                    Text("Plan with OpenAI")
+                                    Text("Plan with Fireworks")
                                         .font(.caption)
                                         .foregroundColor(.secondary)
                                 }

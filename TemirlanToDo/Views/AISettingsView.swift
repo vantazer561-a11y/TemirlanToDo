@@ -15,11 +15,11 @@ struct AISettingsView: View {
                 .font(.system(size: 42, weight: .bold))
                 .foregroundColor(CyberpunkTheme.cyan)
 
-            Text("Connect OpenAI")
+            Text("Connect Fireworks")
                 .font(.system(size: 30, weight: .bold, design: .rounded))
                 .foregroundColor(.white)
 
-            Text("Paste your OpenAI API key once. It stays in iOS Keychain on this device and is not stored in GitHub.")
+            Text("Paste your Fireworks API key once. It stays in iOS Keychain on this device and is not stored in GitHub.")
                 .font(.subheadline)
                 .foregroundColor(CyberpunkTheme.softText)
 
@@ -48,7 +48,7 @@ struct AISettingsView: View {
             }
             .disabled(apiKey.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
 
-            Link(destination: URL(string: "https://platform.openai.com/api-keys")!) {
+            Link(destination: URL(string: "https://app.fireworks.ai/api-keys")!) {
                 Label("Get API key", systemImage: "safari")
                     .foregroundColor(CyberpunkTheme.cyan)
             }

@@ -10,7 +10,7 @@ Temirlan To Do is a native iOS 15+ SwiftUI task app inspired by Microsoft To Do.
 - Add due dates and notes.
 - Local persistence in Application Support as JSON.
 - SwiftUI interface with dark cyberpunk styling and system iOS controls.
-- Personal AI Assistant powered by the OpenAI API.
+- Personal AI Assistant powered by Fireworks Kimi K2.6 Turbo.
 
 ## Project
 
@@ -53,18 +53,20 @@ With a free Apple ID, the app usually needs to be reinstalled after 7 days. If t
 
 ## AI Assistant
 
-The app includes a personal AI Assistant. It calls the OpenAI API directly from the iPhone and stores your API key in iOS Keychain.
+The app includes a personal AI Assistant. It calls Fireworks directly from the iPhone and stores your Fireworks API key in iOS Keychain.
 
 Get an API key here:
 
-[https://platform.openai.com/api-keys](https://platform.openai.com/api-keys)
+[https://app.fireworks.ai/api-keys](https://app.fireworks.ai/api-keys)
 
 Important notes:
 
 - Do not commit your API key to GitHub.
 - Do not paste the key into source files.
 - Enter the key only inside the app's AI Assistant setup screen.
-- ChatGPT Plus and OpenAI API billing are separate. The API key usually requires billing or credits on OpenAI Platform.
+- The app uses the Fireworks OpenAI-compatible API endpoint.
+- Model: `accounts/fireworks/routers/kimi-k2p6-turbo`.
+- Base URL: `https://api.fireworks.ai/inference/v1`.
 
 Assistant features:
 
@@ -74,22 +76,18 @@ Assistant features:
 - Improve task wording.
 - Preview suggested changes before applying them.
 
-### OpenAI 429 Error
+### Fireworks 429 Error
 
-If the app shows `OpenAI returned 429`, check these OpenAI Platform pages:
+If the app shows `Fireworks returned 429`, check Fireworks billing, Fire Pass status, and rate limits:
 
-- Billing: [https://platform.openai.com/settings/organization/billing](https://platform.openai.com/settings/organization/billing)
-- Usage: [https://platform.openai.com/usage](https://platform.openai.com/usage)
-- Limits: [https://platform.openai.com/settings/organization/limits](https://platform.openai.com/settings/organization/limits)
+- API keys: [https://app.fireworks.ai/api-keys](https://app.fireworks.ai/api-keys)
+- Billing: [https://app.fireworks.ai/billing](https://app.fireworks.ai/billing)
 
 Common causes:
 
-- No API credits or billing method on OpenAI Platform.
-- Monthly usage limit reached.
+- Fireworks billing or Fire Pass is not active.
 - Requests are being sent too quickly.
-- The selected model is limited for the current usage tier.
-
-ChatGPT subscription does not automatically pay for OpenAI API usage.
+- The selected Kimi router is not available for the current account.
 
 ## Signed IPA
 
