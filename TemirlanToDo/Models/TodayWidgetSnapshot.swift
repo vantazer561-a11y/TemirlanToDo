@@ -1,4 +1,5 @@
 import Foundation
+import WidgetKit
 
 public struct TodayWidgetSnapshot: Codable, Equatable {
     public var count: Int
@@ -24,6 +25,7 @@ public enum TodayWidgetSnapshotStore {
         }
         userDefaults.set(data, forKey: key)
         UserDefaults(suiteName: appGroupIdentifier)?.set(data, forKey: key)
+        WidgetCenter.shared.reloadTimelines(ofKind: "TemirlanToDoWidget")
     }
 
     public static func load(userDefaults: UserDefaults = .standard) -> TodayWidgetSnapshot {
