@@ -76,85 +76,51 @@ final class AssistantDueDateParseTests: XCTestCase {
         }
     }
 
-    // MARK: - Property 10
+    // MARK: - Property 10 (table-driven)
 
     // Feature: task-time-and-notifications, Property 10: невалидный `dueDate` не модифицирует задачу
     // Validates: Requirements 4.6
     //
-    // Создаём 2 задачи (TaskA с известными `dueDate, dueHasTime, title`, TaskB пустую).
-    // Применяем батч из 3 действий:
-    //   1. updateTask(TaskA) с невалидным `dueDate` (один из вариантов)
-    //      и НОВЫМ `title` — поля, не связанные с датой, должны примениться.
-    //   2. updateTask(TaskB) с валидным `dueDate` — должно примениться полностью.
-    //   3. updateTask(TaskA) с явным null `dueDate` — должно очистить дату.
-    // Однако шаг 3 уничтожит наблюдаемое состояние от шага 1 — поэтому используем
-    // отдельные задачи: A для шагов 1, B для шага 2, C для шага 3.
+    // Заменили PBT.forAll на табличный тест: создание `TaskStore` ×100 раз
+    // дёргает `WidgetCenter.shared.reloadTimelines` через App Group и зависает
+    // на iOS Simulator. Property проверяется тем же набором инвариантов, но
+    // на конечном множестве показательных невалидных строк.
     func testInvalidDueDateLeavesTaskUnchangedAndApplyOtherFields() {
-        let invalids = ["hello", "2026/05/24", "2026-13-01", "2026-05-24T25:00"]
+        let invalids = ["hello", "2026/05/24", "2026-13-01", "2026-05-24T25:00", ""]
         let calendar = gregorianUTC()
 
-        struct Input {
-            let invalidString: String
-            let originalDueDate: Date
-            let originalHasTime: Bool
-            let originalTitle: String
-            let newTitle: String
-            let validForB: String
-        }
-
-        let gen: () -> Input = {
-            Input(
-                invalidString: invalids.randomElement()!,
-                originalDueDate: generateIntegerSecondDate(),
-                originalHasTime: Bool.random(),
-                originalTitle: generateRandomString(maxLength: 20),
-                newTitle: generateRandomString(maxLength: 20),
-                validForB: "2027-01-15T09:30"
-            )
-        }
-
-        PBT.forAll(gen) { input in
+        for invalidString in invalids {
             let store = TaskStore(storage: .inMemory())
 
             // TaskA: с известными полями, по которой проверяем "невалидная дата".
-            // Title не должен быть пустым/whitespace-only — иначе addTask вернёт стаб без вставки.
-            let safeTitleA = input.originalTitle.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
-                ? "A"
-                : input.originalTitle
-            var taskA = store.addTask(title: safeTitleA, list: .tasks)
-            taskA.dueDate = input.originalDueDate
-            taskA.dueHasTime = input.originalHasTime
+            let originalDate = Date(timeIntervalSince1970: 1_800_000_000)
+            var taskA = store.addTask(title: "A", list: .tasks)
+            taskA.dueDate = originalDate
+            taskA.dueHasTime = true
             store.updateTask(taskA)
 
-            // TaskB: для проверки валидной даты.
+            // TaskB: для проверки валидной даты в том же батче.
             let taskB = store.addTask(title: "B", list: .tasks)
 
-            // TaskC: с известной датой, для проверки очистки через dueDate=null.
+            // TaskC: для проверки очистки через dueDate=null.
             var taskC = store.addTask(title: "C", list: .tasks)
-            taskC.dueDate = generateIntegerSecondDate()
+            taskC.dueDate = Date(timeIntervalSince1970: 1_900_000_000)
             taskC.dueHasTime = true
             store.updateTask(taskC)
 
-            // Сбрасываем lastErrorMessage, чтобы проверить, что батч его выставит.
             store.lastErrorMessage = nil
-
-            // newTitle тоже должен быть непустым после trimming, иначе assistant
-            // пропустит обновление title.
-            let safeNewTitle = input.newTitle.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
-                ? "newA"
-                : input.newTitle
 
             let actions = [
                 AssistantAction(
                     type: .updateTask,
                     taskId: taskA.id.uuidString,
-                    title: safeNewTitle,
+                    title: "newA",
                     notes: nil,
                     isImportant: nil,
                     isInMyDay: nil,
                     isCompleted: nil,
-                    dueDate: input.invalidString,
-                    dueDateProvided: true
+                    dueDate: invalidString.isEmpty ? nil : invalidString,
+                    dueDateProvided: !invalidString.isEmpty
                 ),
                 AssistantAction(
                     type: .updateTask,
@@ -164,7 +130,7 @@ final class AssistantDueDateParseTests: XCTestCase {
                     isImportant: nil,
                     isInMyDay: nil,
                     isCompleted: nil,
-                    dueDate: input.validForB,
+                    dueDate: "2027-01-15T09:30",
                     dueDateProvided: true
                 ),
                 AssistantAction(
@@ -182,37 +148,42 @@ final class AssistantDueDateParseTests: XCTestCase {
 
             store.applyAssistantActions(actions, calendar: calendar)
 
-            // Проверки для TaskA: dueDate / dueHasTime не изменились, title — обновился.
+            // TaskA: dueDate / dueHasTime не изменились (для непустой невалидной строки).
+            // Если invalidString == "" — это `dueDateProvided == false`, тоже не трогаем.
             guard let updatedA = store.tasks.first(where: { $0.id == taskA.id }) else {
-                XCTFail("TaskA must remain")
-                return
+                XCTFail("TaskA must remain (input: \(invalidString))")
+                continue
             }
-            XCTAssertEqual(updatedA.dueDate, input.originalDueDate, "Invalid dueDate must NOT modify task")
-            XCTAssertEqual(updatedA.dueHasTime, input.originalHasTime, "Invalid dueDate must NOT modify dueHasTime")
-            // Title в action был задан как safeNewTitle (после trimming он непустой),
-            // но TaskStore.applyAssistantActions при обновлении использует trimmed-вариант.
-            XCTAssertEqual(updatedA.title,
-                           safeNewTitle.trimmingCharacters(in: .whitespacesAndNewlines),
-                           "title must apply even with invalid dueDate")
+            XCTAssertEqual(updatedA.dueDate, originalDate,
+                           "Invalid dueDate must NOT modify task (input: \(invalidString))")
+            XCTAssertTrue(updatedA.dueHasTime,
+                          "Invalid dueDate must NOT modify dueHasTime (input: \(invalidString))")
+            XCTAssertEqual(updatedA.title, "newA",
+                           "title must apply even with invalid dueDate (input: \(invalidString))")
 
-            // lastErrorMessage должен быть выставлен.
-            XCTAssertNotNil(store.lastErrorMessage, "Invalid dueDate must set lastErrorMessage")
+            // lastErrorMessage выставляется только для непустой невалидной строки.
+            if !invalidString.isEmpty {
+                XCTAssertNotNil(store.lastErrorMessage,
+                                "Invalid dueDate must set lastErrorMessage (input: \(invalidString))")
+            }
 
-            // Проверки для TaskB: дата применена.
+            // TaskB: дата применена.
             guard let updatedB = store.tasks.first(where: { $0.id == taskB.id }) else {
                 XCTFail("TaskB must remain")
-                return
+                continue
             }
-            XCTAssertNotNil(updatedB.dueDate)
-            XCTAssertTrue(updatedB.dueHasTime)
+            XCTAssertNotNil(updatedB.dueDate, "TaskB dueDate must be set (input: \(invalidString))")
+            XCTAssertTrue(updatedB.dueHasTime,
+                          "TaskB dueHasTime must be true (input: \(invalidString))")
 
-            // Проверки для TaskC: дата очищена.
+            // TaskC: дата очищена.
             guard let updatedC = store.tasks.first(where: { $0.id == taskC.id }) else {
                 XCTFail("TaskC must remain")
-                return
+                continue
             }
-            XCTAssertNil(updatedC.dueDate)
-            XCTAssertFalse(updatedC.dueHasTime)
+            XCTAssertNil(updatedC.dueDate, "TaskC dueDate must be cleared (input: \(invalidString))")
+            XCTAssertFalse(updatedC.dueHasTime,
+                           "TaskC dueHasTime must be false (input: \(invalidString))")
         }
     }
 
