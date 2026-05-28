@@ -1,4 +1,5 @@
 import SwiftUI
+import UserNotifications
 
 @main
 struct TemirlanToDoApp: App {
@@ -7,6 +8,13 @@ struct TemirlanToDoApp: App {
     @StateObject private var scheduler = NotificationScheduler()
     @Environment(\.scenePhase) private var scenePhase
     @State private var showingSplash = true
+    @State private var didRequestAuthorizationOnStart = false
+
+    init() {
+        // Регистрируем делегата как можно раньше, до доставки любого уведомления.
+        // Без него foreground-уведомления подавляются системой.
+        UNUserNotificationCenter.current().delegate = NotificationDelegate.shared
+    }
 
     var body: some Scene {
         WindowGroup {
@@ -39,10 +47,20 @@ struct TemirlanToDoApp: App {
             }
             .onChange(of: scenePhase) { phase in
                 if phase == .active {
-                    // При возврате в активное состояние — обновляем статус и
-                    // перепланируем уведомления. _Requirements: 5.7, 5.8, 7.11_
+                    // При первом активном фрейме — запрашиваем разрешение,
+                    // чтобы iOS показал системный алерт и приложение появилось
+                    // в Settings → Notifications. _Requirements: 5.1_
                     Task { @MainActor in
-                        await scheduler.refreshAuthorizationStatus()
+                        if !didRequestAuthorizationOnStart {
+                            didRequestAuthorizationOnStart = true
+                            let status = await scheduler.refreshAuthorizationStatus()
+                            if status == .notDetermined {
+                                await scheduler.requestAuthorization()
+                            }
+                        } else {
+                            await scheduler.refreshAuthorizationStatus()
+                        }
+                        // _Requirements: 5.7, 5.8, 7.11_
                         await scheduler.synchronize(
                             with: store.tasks,
                             settings: settingsStore.settings

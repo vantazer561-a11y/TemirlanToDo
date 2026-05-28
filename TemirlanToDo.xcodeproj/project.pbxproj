@@ -53,6 +53,7 @@
 		01000000000000000000003B /* NotificationScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0200000000000000000000B1 /* NotificationScheduler.swift */; };
 		01000000000000000000003C /* NotificationSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0200000000000000000000B2 /* NotificationSettingsView.swift */; };
 		01000000000000000000003D /* NotificationSchedulerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0200000000000000000000B3 /* NotificationSchedulerTests.swift */; };
+		01000000000000000000003E /* NotificationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0200000000000000000000B4 /* NotificationDelegate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -138,6 +139,7 @@
 		0200000000000000000000B1 /* NotificationScheduler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationScheduler.swift; sourceTree = "<group>"; };
 		0200000000000000000000B2 /* NotificationSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSettingsView.swift; sourceTree = "<group>"; };
 		0200000000000000000000B3 /* NotificationSchedulerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSchedulerTests.swift; sourceTree = "<group>"; };
+		0200000000000000000000B4 /* NotificationDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -297,6 +299,7 @@
 				0200000000000000000000AB /* NotificationSettings.swift */,
 				0200000000000000000000AC /* NotificationSettingsStore.swift */,
 				0200000000000000000000B1 /* NotificationScheduler.swift */,
+				0200000000000000000000B4 /* NotificationDelegate.swift */,
 			);
 			path = Notifications;
 			sourceTree = "<group>";
@@ -465,6 +468,7 @@
 				010000000000000000000036 /* NotificationSettingsStore.swift in Sources */,
 				01000000000000000000003B /* NotificationScheduler.swift in Sources */,
 				01000000000000000000003C /* NotificationSettingsView.swift in Sources */,
+				01000000000000000000003E /* NotificationDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
