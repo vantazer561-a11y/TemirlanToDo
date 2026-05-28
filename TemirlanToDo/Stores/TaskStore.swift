@@ -289,35 +289,78 @@ public final class TaskStore: ObservableObject {
             return (nil, false, true)
         }
 
-        // Сначала пробуем строгий формат с временем — если бы пробовали date-only
-        // первым, "2026-05-24T10:00" частично парсился бы как 2026-05-24.
-        let dateTimeFormatter = DateFormatter()
-        dateTimeFormatter.locale = Locale(identifier: "en_US_POSIX")
-        dateTimeFormatter.calendar = calendar
-        dateTimeFormatter.timeZone = calendar.timeZone
-        dateTimeFormatter.isLenient = false
-        dateTimeFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm"
-        if let parsed = dateTimeFormatter.date(from: value) {
-            // Обнуляем секунды и наносекунды (Requirements 4.3).
-            let components = calendar.dateComponents(
-                [.year, .month, .day, .hour, .minute],
-                from: parsed
-            )
-            if let normalized = calendar.date(from: components) {
-                return (normalized, true, true)
+        // `DateFormatter` с `isLenient = false` всё равно нормализует значения
+        // вроде month=13 или hour=25 — поэтому вручную валидируем формат и
+        // диапазоны компонентов. Это защищает от тихих смещений даты при
+        // парсинге заведомо невалидных строк (Requirements 4.6).
+        let dateOnlyRegex = #"^(\d{4})-(\d{2})-(\d{2})$"#
+        let dateTimeRegex = #"^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2})$"#
+
+        if let match = value.range(of: dateTimeRegex, options: .regularExpression),
+           match == value.startIndex..<value.endIndex {
+            let parts = value.split(whereSeparator: { "-T:".contains($0) })
+            guard parts.count == 5,
+                  let year = Int(parts[0]),
+                  let month = Int(parts[1]),
+                  let day = Int(parts[2]),
+                  let hour = Int(parts[3]),
+                  let minute = Int(parts[4]),
+                  (1...12).contains(month),
+                  (1...31).contains(day),
+                  (0...23).contains(hour),
+                  (0...59).contains(minute) else {
+                return (nil, false, false)
             }
-            return (parsed, true, true)
+            var components = DateComponents()
+            components.year = year
+            components.month = month
+            components.day = day
+            components.hour = hour
+            components.minute = minute
+            components.second = 0
+            components.nanosecond = 0
+            // `calendar.date(from:)` сам отвергнет, например, 31 февраля,
+            // потому что Foundation проверит реальную длину месяца только
+            // через round-trip dateComponents. Ниже именно это и делаем.
+            guard let date = calendar.date(from: components) else {
+                return (nil, false, false)
+            }
+            let roundTrip = calendar.dateComponents([.year, .month, .day, .hour, .minute], from: date)
+            guard roundTrip.year == year,
+                  roundTrip.month == month,
+                  roundTrip.day == day,
+                  roundTrip.hour == hour,
+                  roundTrip.minute == minute else {
+                return (nil, false, false)
+            }
+            return (date, true, true)
         }
 
-        let dateFormatter = DateFormatter()
-        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
-        dateFormatter.calendar = calendar
-        dateFormatter.timeZone = calendar.timeZone
-        dateFormatter.isLenient = false
-        dateFormatter.dateFormat = "yyyy-MM-dd"
-        if let parsed = dateFormatter.date(from: value) {
-            // Нормализуем к началу локального дня (Requirements 4.2).
-            return (calendar.startOfDay(for: parsed), false, true)
+        if let match = value.range(of: dateOnlyRegex, options: .regularExpression),
+           match == value.startIndex..<value.endIndex {
+            let parts = value.split(separator: "-")
+            guard parts.count == 3,
+                  let year = Int(parts[0]),
+                  let month = Int(parts[1]),
+                  let day = Int(parts[2]),
+                  (1...12).contains(month),
+                  (1...31).contains(day) else {
+                return (nil, false, false)
+            }
+            var components = DateComponents()
+            components.year = year
+            components.month = month
+            components.day = day
+            guard let date = calendar.date(from: components) else {
+                return (nil, false, false)
+            }
+            let roundTrip = calendar.dateComponents([.year, .month, .day], from: date)
+            guard roundTrip.year == year,
+                  roundTrip.month == month,
+                  roundTrip.day == day else {
+                return (nil, false, false)
+            }
+            return (calendar.startOfDay(for: date), false, true)
         }
 
         return (nil, false, false)
