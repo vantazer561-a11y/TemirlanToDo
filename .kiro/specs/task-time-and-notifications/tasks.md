@@ -12,14 +12,14 @@ Property-тесты реализуются через собственный hel
 
 - [ ] 1. PBT helper и генераторы для тестов
 
-  - [ ]* 1.1 Создать `PBT.swift` с helper `forAll` и SeededRandom
+  - [ ] 1.1 Создать `PBT.swift` с helper `forAll` и SeededRandom
     - Файл: `TemirlanToDoTests/PBT.swift`
     - `enum PBT { static let defaultIterations = 100; static func forAll<A>(_ gen: (inout SystemRandomNumberGenerator) -> A, iterations: Int = defaultIterations, file: StaticString = #file, line: UInt = #line, _ check: (A) throws -> Void) }`.
     - При падении — `XCTFail` с номером итерации и serialized входом.
     - Поддержать deterministic seed через env-переменную `PBT_SEED` (для воспроизводимости в CI).
     - _Requirements: инфраструктура для всех Property-тестов_
 
-  - [ ]* 1.2 Создать `Generators.swift` с базовыми генераторами
+  - [ ] 1.2 Создать `Generators.swift` с базовыми генераторами
     - Файл: `TemirlanToDoTests/Generators.swift`
     - Генераторы: `genUUID`, `genDate(in: Date...Date)`, `genString(maxLen:)`, `genBool`, `genInt(in:)`, `genTaskItem` (с инвариантом `dueDate == nil ⇒ dueHasTime == false` и нулевыми секундами/наносекундами), `genTaskItems(count:)`, `genNotificationSettings`, `genTodayWidgetSnapshot`, `genISODateString`, `genISODateTimeString`, `genInvalidDueDateString`.
     - Все принимают `inout SystemRandomNumberGenerator` для детерминированности.
@@ -42,28 +42,28 @@ Property-тесты реализуются через собственный hel
     - `notes`, `isCompleted`, `isImportant`, `isInMyDay` остаются с прежней семантикой через `decodeIfPresent`.
     - _Requirements: 1.3, 1.4, 10.1_
 
-  - [ ]* 2.3 Property-тест: JSON round-trip TaskItem
+  - [ ] 2.3 Property-тест: JSON round-trip TaskItem
     - Файл: `TemirlanToDoTests/TaskItemMigrationTests.swift` (новый)
     - **Property 1: TaskItem JSON round-trip**
     - **Validates: Requirements 1.2, 10.4**
     - Использует `genTaskItem` из задачи 1.2.
     - _Requirements: 1.2, 10.4_
 
-  - [ ]* 2.4 Property-тест: декодирование JSON без ключа `dueHasTime`
+  - [ ] 2.4 Property-тест: декодирование JSON без ключа `dueHasTime`
     - Файл: `TemirlanToDoTests/TaskItemMigrationTests.swift`
     - **Property 2: Backward-compatible decode без `dueHasTime`**
     - **Validates: Requirements 1.3, 10.1**
     - Сериализуем задачу, удаляем ключ `dueHasTime` из JSON-словаря, декодируем — должно вернуть `dueHasTime == false` и остальные поля без изменений.
     - _Requirements: 1.3, 10.1_
 
-  - [ ]* 2.5 Property-тест: инвариант `dueDate == nil ⇒ dueHasTime == false`
+  - [ ] 2.5 Property-тест: инвариант `dueDate == nil ⇒ dueHasTime == false`
     - Файл: `TemirlanToDoTests/TaskItemMigrationTests.swift`
     - **Property 3: Инвариант nil-due**
     - **Validates: Requirements 1.4, 1.5, 1.8**
     - Генерируем `TaskItem` со случайными `dueDate (nil/non-nil)` и `dueHasTime (Bool.random())`. Проверяем, что после `init` инвариант держится. Дополнительно: после `decode` JSON с `dueDate=null, dueHasTime=true` итог — `dueHasTime == false`.
     - _Requirements: 1.4, 1.5, 1.8_
 
-  - [ ]* 2.6 Property-тест: каждая закодированная задача содержит ключ `dueHasTime`
+  - [ ] 2.6 Property-тест: каждая закодированная задача содержит ключ `dueHasTime`
     - Файл: `TemirlanToDoTests/TaskItemMigrationTests.swift`
     - **Property 22: каждая закодированная задача содержит ключ `dueHasTime`**
     - **Validates: Requirements 10.3**
@@ -97,28 +97,28 @@ Property-тесты реализуются через собственный hel
     - Ставит `dueDate = nil`, `dueHasTime = false`, обновляет `updatedAt`, `save()`.
     - _Requirements: 1.8, 2.2_
 
-  - [ ]* 3.5 Property-тест: setDueTime сохраняет компоненты времени
+  - [ ] 3.5 Property-тест: setDueTime сохраняет компоненты времени
     - Файл: `TemirlanToDoTests/TaskStoreTimeTests.swift` (новый)
     - **Property 4: setDueDate(hour, minute) сохраняет компоненты**
     - **Validates: Requirements 1.6**
     - Для случайных `(hour ∈ 0..23, minute ∈ 0..59)` после `setDueTime` поле `dueDate` имеет ровно эти компоненты, секунды/наносекунды = 0, `dueHasTime == true`.
     - _Requirements: 1.6_
 
-  - [ ]* 3.6 Property-тест: clearDueTime нормализует к началу дня
+  - [ ] 3.6 Property-тест: clearDueTime нормализует к началу дня
     - Файл: `TemirlanToDoTests/TaskStoreTimeTests.swift`
     - **Property 5: clearTime нормализует к началу дня**
     - **Validates: Requirements 1.7, 2.6**
     - Для случайной задачи с `dueDate != nil` после `clearDueTime` календарная дата (year/month/day) не меняется, hour/minute/second/nanosecond == 0, `dueHasTime == false`.
     - _Requirements: 1.7, 2.6_
 
-  - [ ]* 3.7 Property-тест: TaskStore round-trip через storage
+  - [ ] 3.7 Property-тест: TaskStore round-trip через storage
     - Файл: `TemirlanToDoTests/TaskStoreTimeTests.swift`
     - **Property 7: TaskStore-уровневый round-trip**
     - **Validates: Requirements 2.7**
     - Создать задачу через `addTask`, изменить через `updateTask` (включая `dueDate`/`dueHasTime`), пересоздать `TaskStore` с тем же `TaskStorage` (file-backed) — задача загружается с теми же значениями.
     - _Requirements: 2.7_
 
-  - [ ]* 3.8 Unit-тест: clearDueDate обнуляет оба поля и `dueHasTime` инвариант после clearDueDate
+  - [ ] 3.8 Unit-тест: clearDueDate обнуляет оба поля и `dueHasTime` инвариант после clearDueDate
     - Файл: `TemirlanToDoTests/TaskStoreTimeTests.swift`
     - Создать задачу с `dueDate != nil, dueHasTime == true`, вызвать `clearDueDate`, проверить `dueDate == nil && dueHasTime == false`.
     - _Requirements: 1.8_
@@ -152,21 +152,21 @@ Property-тесты реализуются через собственный hel
     - Удалить старый приватный хелпер `date(from:calendar:)` после переноса логики.
     - _Requirements: 4.2, 4.3, 4.4, 4.6_
 
-  - [ ]* 4.4 Property-тест: parseAssistantDueDate round-trip для двух форматов
+  - [ ] 4.4 Property-тест: parseAssistantDueDate round-trip для двух форматов
     - Файл: `TemirlanToDoTests/AssistantDueDateParseTests.swift` (новый)
     - **Property 9: parseAssistantDueDate round-trip для двух форматов**
     - **Validates: Requirements 4.1, 4.2, 4.3**
     - Для случайной даты с нулевыми секундами и `hasTime: Bool`: сериализуем строкой соответствующего формата, парсим, ожидаем `(date, hasTime, true)`.
     - _Requirements: 4.1, 4.2, 4.3_
 
-  - [ ]* 4.5 Property-тест: невалидный `dueDate` не модифицирует задачу и не прерывает батч
+  - [ ] 4.5 Property-тест: невалидный `dueDate` не модифицирует задачу и не прерывает батч
     - Файл: `TemirlanToDoTests/AssistantDueDateParseTests.swift`
     - **Property 10: Невалидный `dueDate` не модифицирует задачу**
     - **Validates: Requirements 4.6**
     - Генерируем батч из 3+ действий, в одном — невалидный `dueDate` (например, `"2026/05/24"`, `"hello"`, `"2026-05-24T25:00"`). Проверяем: целевая задача не изменилась по `dueDate`/`dueHasTime`; `lastErrorMessage != nil`; остальные действия батча применены (включая последующие); другие поля в ошибочном действии тоже применены.
     - _Requirements: 4.6_
 
-  - [ ]* 4.6 Unit-тест: `dueDateProvided` отделяет «не трогать» от «очистить»
+  - [ ] 4.6 Unit-тест: `dueDateProvided` отделяет «не трогать» от «очистить»
     - Файл: `TemirlanToDoTests/AssistantDueDateParseTests.swift`
     - Декодируем JSON `{"type":"update_task","taskId":"...","title":"x"}` (без ключа `dueDate`) — `dueDateProvided == false`.
     - Декодируем JSON `{"type":"update_task","taskId":"...","title":"x","dueDate":null}` — `dueDateProvided == true, dueDate == nil`.
@@ -191,7 +191,7 @@ Property-тесты реализуются через собственный hel
     - Добавить блок «Rules for dueDate» в system-prompt: «omit the key entirely to leave the date untouched; use null to clear; use one of the two ISO formats to set».
     - _Requirements: 4.5_
 
-  - [ ]* 5.4 Snapshot-тест: схема описывает оба формата и pattern
+  - [ ] 5.4 Snapshot-тест: схема описывает оба формата и pattern
     - Файл: `TemirlanToDoTests/AssistantSchemaTests.swift` (новый)
     - Извлечь `AssistantSchema.json["properties"]["actions"]["items"]["properties"]["dueDate"]` и проверить:
       - `description` содержит подстроки `yyyy-MM-dd` и `yyyy-MM-dd'T'HH:mm`;
@@ -215,21 +215,21 @@ Property-тесты реализуются через собственный hel
     - Добавить те же два опциональных поля в локальный `struct TodayWidgetSnapshot` (виджет читает свой Codable, не зависит от App-таргета).
     - _Requirements: 9.1, 9.6, 10.2_
 
-  - [ ]* 6.3 Property-тест: snapshot title обрезается до 80 символов без многоточия
+  - [ ] 6.3 Property-тест: snapshot title обрезается до 80 символов без многоточия
     - Файл: `TemirlanToDoTests/TodayWidgetSnapshotTests.swift` (новый)
     - **Property 17: snapshot.nextTimedTitle обрезается до 80 символов**
     - **Validates: Requirements 9.4**
     - Для случайного `title` после построения через `TaskStore` (см. задачу 7) `snapshot.nextTimedTitle!.count == min(title.count, 80)` и равен `String(title.prefix(80))`.
     - _Requirements: 9.4_
 
-  - [ ]* 6.4 Property-тест: TodayWidgetSnapshot декодируется из старого JSON без новых ключей
+  - [ ] 6.4 Property-тест: TodayWidgetSnapshot декодируется из старого JSON без новых ключей
     - Файл: `TemirlanToDoTests/TodayWidgetSnapshotTests.swift`
     - **Property 18: TodayWidgetSnapshot декодируется из старого JSON**
     - **Validates: Requirements 9.6, 10.2**
     - Для случайного `(count, titles, updatedAt)` сериализовать как «старый» JSON (без `nextTimedTitle`/`nextTimedDate`), декодировать и убедиться, что `nextTimedTitle == nil && nextTimedDate == nil`. Тот же тест продублировать для виджет-таргетного `TodayWidgetSnapshot`.
     - _Requirements: 9.6, 10.2_
 
-  - [ ]* 6.5 Property-тест: формат строки виджета содержит title и HH:mm
+  - [ ] 6.5 Property-тест: формат строки виджета содержит title и HH:mm
     - Файл: `TemirlanToDoTests/TodayWidgetSnapshotTests.swift`
     - **Property 19: формат строки виджета содержит title и HH:mm**
     - **Validates: Requirements 9.7**
@@ -255,14 +255,14 @@ Property-тесты реализуются через собственный hel
     - Проверить, что `TodayWidgetSnapshotStore.save(...)` вызывает `WidgetCenter.shared.reloadTimelines(ofKind: "TemirlanToDoWidget")` ровно один раз за вызов (это уже верно — оставить как есть).
     - _Requirements: 9.4, 9.5, 9.9_
 
-  - [ ]* 7.3 Property-тест: Next_Timed_Task_Today выбирается детерминированно
+  - [ ] 7.3 Property-тест: Next_Timed_Task_Today выбирается детерминированно
     - Файл: `TemirlanToDoTests/TaskStoreSnapshotTests.swift` (новый)
     - **Property 16: Next_Timed_Task_Today selection алгоритм**
     - **Validates: Requirements 9.2, 9.3, 9.5**
     - Для случайного `[TaskItem]` (включая случаи равных `dueDate` и пустых множеств) и случайного `now` функция возвращает элемент из правильного множества с минимальным `dueDate`, при равенстве — с лексикографически наименьшим `id.uuidString`. Перемешивание входа не меняет результат. Если множество пустое — `nil`.
     - _Requirements: 9.2, 9.3, 9.5_
 
-  - [ ]* 7.4 Property-тест: snapshot вызывает reloadTimelines ровно один раз
+  - [ ] 7.4 Property-тест: snapshot вызывает reloadTimelines ровно один раз
     - Файл: `TemirlanToDoTests/TaskStoreSnapshotTests.swift`
     - **Property 4 (адаптация): saveTodayWidgetSnapshot — единая точка обновления виджета**
     - **Validates: Requirements 9.9**
@@ -284,7 +284,7 @@ Property-тесты реализуются через собственный hel
     - Проверить, что секция `if !task.notes.isEmpty || task.dueDate != nil || task.isInMyDay` корректно ведёт себя при `dueDate == nil`.
     - _Requirements: 3.1, 3.2, 3.3, 3.5_
 
-  - [ ]* 8.3 Property-тест: formattedDue согласован с DateFormatter
+  - [ ] 8.3 Property-тест: formattedDue согласован с DateFormatter
     - Файл: `TemirlanToDoTests/TaskRowFormattingTests.swift` (новый)
     - **Property 8: formatDue согласован с DateFormatter**
     - **Validates: Requirements 3.1, 3.2**
@@ -311,14 +311,14 @@ Property-тесты реализуются через собственный hel
     - В `save()`: установить `draft.dueHasTime` соответственно `hasDueTime` и `hasDueDate`; обнулить секунды/наносекунды у `draft.dueDate`, если время задано.
     - _Requirements: 2.1, 2.2, 2.3, 2.4, 2.5, 2.6, 2.7, 2.8, 2.9_
 
-  - [ ]* 9.3 Property-тест: nextRoundedQuarterHour инварианты
+  - [ ] 9.3 Property-тест: nextRoundedQuarterHour инварианты
     - Файл: `TemirlanToDoTests/TaskDetailViewStateTests.swift` (новый)
     - **Property 6: nextRoundedQuarterHour строго в будущем и кратен 15 минутам**
     - **Validates: Requirements 2.4**
     - Для случайного `now` и `base ∈ {nil, same-day, other-day}`: (а) результат строго больше `now`; (б) `minute ∈ {0,15,30,45}`; (в) `second == 0 && nanosecond == 0`; (г) разница `< 15 минут` (минимальный кратный 15-минут момент в будущем). Корнер-кейс: `now` = 23:50 → результат — следующий локальный день, 00:00.
     - _Requirements: 2.4_
 
-  - [ ]* 9.4 Unit-тест: makeInitialDetailState отражает задачу
+  - [ ] 9.4 Unit-тест: makeInitialDetailState отражает задачу
     - Файл: `TemirlanToDoTests/TaskDetailViewStateTests.swift`
     - Для трёх кейсов: `(dueDate=nil, hasTime=false)`, `(dueDate=set, hasTime=false)`, `(dueDate=set, hasTime=true)` — проверить корректность `TaskDetailInitialState`.
     - _Requirements: 2.8, 2.9_
@@ -374,21 +374,21 @@ Property-тесты реализуются через собственный hel
     - `public func update(_ transform: (inout NotificationSettings) -> Bool) -> Bool` — для частичных обновлений.
     - _Requirements: 6.1, 7.1, 8.8, 8.9, 8.10_
 
-  - [ ]* 11.3 Property-тест: setLeadTime отвергает значения вне `{5, 15, 30, 60}`
+  - [ ] 11.3 Property-тест: setLeadTime отвергает значения вне `{5, 15, 30, 60}`
     - Файл: `TemirlanToDoTests/NotificationSettingsTests.swift` (новый)
     - **Property 20: setLeadTime отвергает значения вне `{5, 15, 30, 60}`**
     - **Validates: Requirements 7.2**
     - Для случайного `Int v`: если `v ∉ {5, 15, 30, 60}` — `setLeadTime` возвращает `false` и `leadTimeMinutes` не меняется; иначе возвращает `true` и значение применяется.
     - _Requirements: 7.2_
 
-  - [ ]* 11.4 Property-тест: store fallback на default при невалидной/отсутствующей записи
+  - [ ] 11.4 Property-тест: store fallback на default при невалидной/отсутствующей записи
     - Файл: `TemirlanToDoTests/NotificationSettingsTests.swift`
     - **Property 21: NotificationSettingsStore.load → default при невалидной/отсутствующей записи**
     - **Validates: Requirements 8.10**
     - Для случайного содержимого UserDefaults (отсутствие записи, произвольные байты, JSON c `leadTimeMinutes ∉ allowed` или `morningTime` вне диапазонов): `load(...)` возвращает `.default`. Использовать `UserDefaults(suiteName: "test-\(UUID())")` для изоляции.
     - _Requirements: 8.10_
 
-  - [ ]* 11.5 Unit-тест: store сначала пишет в UserDefaults, потом обновляет `@Published settings`
+  - [ ] 11.5 Unit-тест: store сначала пишет в UserDefaults, потом обновляет `@Published settings`
     - Файл: `TemirlanToDoTests/NotificationSettingsTests.swift`
     - В `Combine.sink` на `$settings` проверить, что в момент эмиссии `defaults.data(forKey: ...)` уже содержит сериализованную новую структуру.
     - _Requirements: 8.8_
@@ -444,42 +444,42 @@ Property-тесты реализуются через собственный hel
     - `cancelAll()`: `removeAllPendingNotificationRequests()` (или явно по идентификаторам, если вдруг будут чужие).
     - _Requirements: 5.6, 5.7, 5.8, 6.7, 7.6, 7.7, 7.9, 7.10, 7.11, 7.12_
 
-  - [ ]* 12.7 Property-тест: synchronize детерминирует целевое множество pending (идемпотентность)
+  - [ ] 12.7 Property-тест: synchronize детерминирует целевое множество pending (идемпотентность)
     - Файл: `TemirlanToDoTests/NotificationSchedulerTests.swift` (новый)
     - **Property 11: synchronize детерминирует целевое множество pending**
     - **Validates: Requirements 5.6, 5.8, 6.2, 6.3, 6.7, 6.8, 7.3, 7.4, 7.6, 7.7, 7.8, 7.9, 7.10, 7.11, 7.12**
     - Для случайных `[TaskItem]`, случайных `NotificationSettings`, случайного `authState`: вычислить ожидаемый target set; вызвать `synchronize`; pending == target. Повторный вызов `synchronize` не меняет состояние.
     - _Requirements: 5.6, 5.8, 6.2, 6.3, 6.7, 6.8, 7.3, 7.4, 7.6, 7.7, 7.8, 7.9, 7.10, 7.11, 7.12_
 
-  - [ ]* 12.8 Property-тест: лимит 64 pending — упорядочивание и обрезание
+  - [ ] 12.8 Property-тест: лимит 64 pending — упорядочивание и обрезание
     - Файл: `TemirlanToDoTests/NotificationSchedulerTests.swift`
     - **Property 12: лимит 64 pending — упорядочивание и обрезание**
     - **Validates: Requirements 7.13**
     - Сгенерировать >100 timed-задач в будущем; после `synchronize` общее число pending ≤ 64; набор оставленных task-reminder = первые `min(N, 64 − reservedForMorning)` по `dueDate`.
     - _Requirements: 7.13_
 
-  - [ ]* 12.9 Property-тест: russianTaskWord по русским правилам
+  - [ ] 12.9 Property-тест: russianTaskWord по русским правилам
     - Файл: `TemirlanToDoTests/NotificationSchedulerTests.swift`
     - **Property 13: russianTaskWord по русским правилам**
     - **Validates: Requirements 6.4**
     - Для всех `n ∈ 0..1000` сравнить с reference-реализацией. Точечные кейсы: 1, 2, 5, 11, 21, 22, 25, 101, 111, 112, 121.
     - _Requirements: 6.4_
 
-  - [ ]* 12.10 Property-тест: morning body содержит правильное содержимое
+  - [ ] 12.10 Property-тест: morning body содержит правильное содержимое
     - Файл: `TemirlanToDoTests/NotificationSchedulerTests.swift`
     - **Property 14: morning notification body содержит правильное содержимое**
     - **Validates: Requirements 6.5, 6.6**
     - Если есть Next_Timed_Task_Today → body содержит `title` и подстроку `"в HH:mm"` для `dueDate` в локальной таймзоне. Иначе → body содержит `title` выбранной по 6.6 задачи.
     - _Requirements: 6.5, 6.6_
 
-  - [ ]* 12.11 Property-тест: task reminder body содержит leadTime и время
+  - [ ] 12.11 Property-тест: task reminder body содержит leadTime и время
     - Файл: `TemirlanToDoTests/NotificationSchedulerTests.swift`
     - **Property 15: task reminder body содержит leadTime и время**
     - **Validates: Requirements 7.5**
     - Для случайного `dueDate` и `leadMinutes ∈ {5, 15, 30, 60}` body содержит `"Через <leadMinutes> мин"` и `"в HH:mm"`.
     - _Requirements: 7.5_
 
-  - [ ]* 12.12 Unit-тест: cancelAll и .denied → no-op
+  - [ ] 12.12 Unit-тест: cancelAll и .denied → no-op
     - Файл: `TemirlanToDoTests/NotificationSchedulerTests.swift`
     - При `authorizationStatus = .denied` после `synchronize` pending пуст; `add` не вызывался (`addCallCount == 0`).
     - _Requirements: 5.6, 6.7, 7.12_

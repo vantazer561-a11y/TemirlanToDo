@@ -41,9 +41,9 @@ public final class NotificationSettingsStore: ObservableObject {
     }
 
     @discardableResult
-    public func update(_ transform: (inout NotificationSettings) -> Void) -> Bool {
+    public func update(_ transform: (inout NotificationSettings) -> Bool) -> Bool {
         var next = settings
-        transform(&next)
+        guard transform(&next) else { return false }
         return save(next)
     }
 

@@ -125,7 +125,10 @@ struct NotificationSettingsView: View {
                 }
             }
 
-            let ok = settingsStore.update(transform)
+            let ok = settingsStore.update { state in
+                transform(&state)
+                return true
+            }
             if !ok {
                 saveError = "Не удалось сохранить настройку"
                 return

@@ -55,7 +55,7 @@ struct TodayTasksProvider: TimelineProvider {
                 count: 3,
                 titles: ["Ship IPA", "Test AI", "Plan tomorrow"],
                 updatedAt: Date(),
-                nextTimedTitle: "Митинг с командой",
+                nextTimedTitle: "Митинг с Анной",
                 nextTimedDate: Date().addingTimeInterval(3600)
             )
         )

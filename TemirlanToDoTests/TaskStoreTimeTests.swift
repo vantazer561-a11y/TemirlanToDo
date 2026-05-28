@@ -121,7 +121,7 @@ final class TaskStoreTimeTests: XCTestCase {
     //
     // Создаём задачу через `addTask`, фиксируем поля, пересоздаём `TaskStore` поверх
     // того же file-backed `TaskStorage` — задача загружается с теми же значениями.
-    func testStoreRoundTrip() {
+    func testTaskStoreFileRoundTrip() {
         PBT.forAll({ generateTaskItem() }) { sample in
             let (storage, url) = self.makeFileBackedStorage()
             defer { try? FileManager.default.removeItem(at: url) }
@@ -145,7 +145,7 @@ final class TaskStoreTimeTests: XCTestCase {
     // MARK: - Unit test
 
     // Unit-тест: clearDueDate обнуляет оба поля. _Requirements: 1.8_
-    func testClearDueDateZerosBoth() {
+    func testClearDueDateClearsBothFields() {
         let store = TaskStore(storage: .inMemory())
         var task = store.addTask(title: "Deadline", list: .tasks)
         task.dueDate = Date(timeIntervalSince1970: 1_700_000_000)
