@@ -116,7 +116,7 @@ struct NotificationSettingsView: View {
     /// запрошено — сначала запросить (Req 5.2). Сохранение ошибки выводится
     /// в `saveError` без изменения in-memory `settings`.
     /// _Requirements: 5.2, 5.3, 8.8, 8.9_
-    private func updateSettings(_ transform: (inout NotificationSettings) -> Void) {
+    private func updateSettings(_ transform: @escaping (inout NotificationSettings) -> Void) {
         Task {
             if scheduler.authorizationState == .notDetermined {
                 await scheduler.requestAuthorization()
