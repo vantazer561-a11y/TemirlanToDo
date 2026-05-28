@@ -18,13 +18,23 @@ struct RootView: View {
                             .listRowBackground(Color.clear)
                         }
                     } header: {
-                        VStack(alignment: .leading, spacing: 8) {
-                            Text("Temirlan To Do")
-                                .font(.system(size: 34, weight: .bold, design: .rounded))
-                                .foregroundColor(.white)
-                            Text("Focus board with a neon pulse")
-                                .font(.subheadline)
-                                .foregroundColor(CyberpunkTheme.softText)
+                        HStack(alignment: .top) {
+                            VStack(alignment: .leading, spacing: 8) {
+                                Text("Temirlan To Do")
+                                    .font(.system(size: 34, weight: .bold, design: .rounded))
+                                    .foregroundColor(.white)
+                                Text("Focus board with a neon pulse")
+                                    .font(.subheadline)
+                                    .foregroundColor(CyberpunkTheme.softText)
+                            }
+                            Spacer()
+                            NavigationLink(destination: NotificationSettingsView()) {
+                                Image(systemName: "bell.fill")
+                                    .font(.title3)
+                                    .foregroundColor(CyberpunkTheme.cyan)
+                                    .padding(8)
+                            }
+                            .accessibilityLabel("Notification settings")
                         }
                         .textCase(nil)
                         .padding(.vertical, 12)

@@ -44,7 +44,8 @@ public final class AssistantService {
         Return only JSON that matches the provided schema.
         Do not claim that actions were applied. The app will preview actions first.
         Prefer concise Russian if the user writes Russian; otherwise follow the user's language.
-        Use dueDate only as yyyy-MM-dd. Use taskId only for existing tasks included in context.
+        Use dueDate as 'yyyy-MM-dd' for date-only tasks, 'yyyy-MM-dd'T'HH:mm' (24-hour, local timezone) for tasks with a specific time, or null to clear the due date. Omit the dueDate key entirely to leave it unchanged.
+        Use taskId only for existing tasks included in context.
         Keep suggestions practical, small, and actionable.
         """
     }

@@ -24,4 +24,14 @@ final class TaskStorageTests: XCTestCase {
 
         XCTAssertEqual(try storage.loadTasks(), [])
     }
+
+    // Feature: task-time-and-notifications, Property 1: TaskItem JSON round-trip с миграцией
+    // Validates: Requirements 1.2, 10.3, 10.4
+    func testJSONRoundTripPreservesTaskItem() {
+        PBT.forAll(generateTaskItem) { task in
+            let data = try JSONEncoder().encode(task)
+            let decoded = try JSONDecoder().decode(TaskItem.self, from: data)
+            XCTAssertEqual(decoded, task)
+        }
+    }
 }

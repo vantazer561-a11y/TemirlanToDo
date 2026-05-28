@@ -61,11 +61,12 @@ public final class FireworksClient {
                           "isImportant": true,
                           "isInMyDay": false,
                           "isCompleted": false,
-                          "dueDate": "yyyy-MM-dd or null"
+                          "dueDate": "yyyy-MM-dd OR yyyy-MM-dd'T'HH:mm OR null"
                         }
                       ]
                     }
                     Use null for unknown optional fields. Do not include markdown.
+                    Rules for dueDate: omit the key entirely to leave the date untouched; use null to clear; use one of the two ISO formats to set.
                     """
                 ],
                 [

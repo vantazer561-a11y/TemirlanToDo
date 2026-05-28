@@ -33,6 +33,26 @@
 		010000000000000000000018 /* LaunchSplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02000000000000000000001C /* LaunchSplashView.swift */; };
 		010000000000000000000019 /* TemirlanToDoWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02000000000000000000001D /* TemirlanToDoWidget.swift */; };
 		01000000000000000000001A /* TemirlanToDoWidget.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 02000000000000000000001F /* TemirlanToDoWidget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, CodeSignOnCopy, ); }; };
+		01000000000000000000002A /* PropertyTesting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0200000000000000000000A0 /* PropertyTesting.swift */; };
+		01000000000000000000002B /* TaskItemGenerators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0200000000000000000000A1 /* TaskItemGenerators.swift */; };
+		01000000000000000000002C /* TaskItemMigrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0200000000000000000000A2 /* TaskItemMigrationTests.swift */; };
+		01000000000000000000002D /* TaskStoreTimeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0200000000000000000000A3 /* TaskStoreTimeTests.swift */; };
+		01000000000000000000002E /* AssistantDueDateParseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0200000000000000000000A4 /* AssistantDueDateParseTests.swift */; };
+		01000000000000000000002F /* AssistantSchemaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0200000000000000000000A5 /* AssistantSchemaTests.swift */; };
+		010000000000000000000030 /* TodayWidgetSnapshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0200000000000000000000A6 /* TodayWidgetSnapshotTests.swift */; };
+		010000000000000000000031 /* TaskStoreSnapshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0200000000000000000000A7 /* TaskStoreSnapshotTests.swift */; };
+		010000000000000000000032 /* TaskRowFormatting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0200000000000000000000A8 /* TaskRowFormatting.swift */; };
+		010000000000000000000033 /* TaskDetailViewState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0200000000000000000000A9 /* TaskDetailViewState.swift */; };
+		010000000000000000000034 /* NotificationCenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0200000000000000000000AA /* NotificationCenterProtocol.swift */; };
+		010000000000000000000035 /* NotificationSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0200000000000000000000AB /* NotificationSettings.swift */; };
+		010000000000000000000036 /* NotificationSettingsStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0200000000000000000000AC /* NotificationSettingsStore.swift */; };
+		010000000000000000000037 /* FakeNotificationCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0200000000000000000000AD /* FakeNotificationCenter.swift */; };
+		010000000000000000000038 /* TaskRowFormattingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0200000000000000000000AE /* TaskRowFormattingTests.swift */; };
+		010000000000000000000039 /* TaskDetailViewStateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0200000000000000000000AF /* TaskDetailViewStateTests.swift */; };
+		01000000000000000000003A /* NotificationSettingsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0200000000000000000000B0 /* NotificationSettingsTests.swift */; };
+		01000000000000000000003B /* NotificationScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0200000000000000000000B1 /* NotificationScheduler.swift */; };
+		01000000000000000000003C /* NotificationSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0200000000000000000000B2 /* NotificationSettingsView.swift */; };
+		01000000000000000000003D /* NotificationSchedulerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0200000000000000000000B3 /* NotificationSchedulerTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -98,6 +118,26 @@
 		02000000000000000000001D /* TemirlanToDoWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemirlanToDoWidget.swift; sourceTree = "<group>"; };
 		02000000000000000000001E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		02000000000000000000001F /* TemirlanToDoWidget.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = TemirlanToDoWidget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		0200000000000000000000A0 /* PropertyTesting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Support/PropertyTesting.swift"; sourceTree = "<group>"; };
+		0200000000000000000000A1 /* TaskItemGenerators.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Support/TaskItemGenerators.swift"; sourceTree = "<group>"; };
+		0200000000000000000000A2 /* TaskItemMigrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskItemMigrationTests.swift; sourceTree = "<group>"; };
+		0200000000000000000000A3 /* TaskStoreTimeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskStoreTimeTests.swift; sourceTree = "<group>"; };
+		0200000000000000000000A4 /* AssistantDueDateParseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssistantDueDateParseTests.swift; sourceTree = "<group>"; };
+		0200000000000000000000A5 /* AssistantSchemaTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssistantSchemaTests.swift; sourceTree = "<group>"; };
+		0200000000000000000000A6 /* TodayWidgetSnapshotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayWidgetSnapshotTests.swift; sourceTree = "<group>"; };
+		0200000000000000000000A7 /* TaskStoreSnapshotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskStoreSnapshotTests.swift; sourceTree = "<group>"; };
+		0200000000000000000000A8 /* TaskRowFormatting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskRowFormatting.swift; sourceTree = "<group>"; };
+		0200000000000000000000A9 /* TaskDetailViewState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDetailViewState.swift; sourceTree = "<group>"; };
+		0200000000000000000000AA /* NotificationCenterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationCenterProtocol.swift; sourceTree = "<group>"; };
+		0200000000000000000000AB /* NotificationSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSettings.swift; sourceTree = "<group>"; };
+		0200000000000000000000AC /* NotificationSettingsStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSettingsStore.swift; sourceTree = "<group>"; };
+		0200000000000000000000AD /* FakeNotificationCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeNotificationCenter.swift; sourceTree = "<group>"; };
+		0200000000000000000000AE /* TaskRowFormattingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskRowFormattingTests.swift; sourceTree = "<group>"; };
+		0200000000000000000000AF /* TaskDetailViewStateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDetailViewStateTests.swift; sourceTree = "<group>"; };
+		0200000000000000000000B0 /* NotificationSettingsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSettingsTests.swift; sourceTree = "<group>"; };
+		0200000000000000000000B1 /* NotificationScheduler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationScheduler.swift; sourceTree = "<group>"; };
+		0200000000000000000000B2 /* NotificationSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSettingsView.swift; sourceTree = "<group>"; };
+		0200000000000000000000B3 /* NotificationSchedulerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSchedulerTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -144,6 +184,7 @@
 				070000000000000000000005 /* Stores */,
 				070000000000000000000006 /* Theme */,
 				07000000000000000000000A /* AI */,
+				0700000000000000000000F0 /* Notifications */,
 				070000000000000000000009 /* Views */,
 				020000000000000000000012 /* Assets.xcassets */,
 				02000000000000000000000E /* Info.plist */,
@@ -192,6 +233,19 @@
 				02000000000000000000000D /* TaskStorageTests.swift */,
 				020000000000000000000019 /* AssistantModelsTests.swift */,
 				02000000000000000000001A /* AssistantActionsTests.swift */,
+				0200000000000000000000A0 /* PropertyTesting.swift */,
+				0200000000000000000000A1 /* TaskItemGenerators.swift */,
+				0200000000000000000000A2 /* TaskItemMigrationTests.swift */,
+				0200000000000000000000A3 /* TaskStoreTimeTests.swift */,
+				0200000000000000000000A4 /* AssistantDueDateParseTests.swift */,
+				0200000000000000000000A5 /* AssistantSchemaTests.swift */,
+				0200000000000000000000A6 /* TodayWidgetSnapshotTests.swift */,
+				0200000000000000000000A7 /* TaskStoreSnapshotTests.swift */,
+				0200000000000000000000AD /* FakeNotificationCenter.swift */,
+				0200000000000000000000AE /* TaskRowFormattingTests.swift */,
+				0200000000000000000000AF /* TaskDetailViewStateTests.swift */,
+				0200000000000000000000B0 /* NotificationSettingsTests.swift */,
+				0200000000000000000000B3 /* NotificationSchedulerTests.swift */,
 				02000000000000000000000F /* Info.plist */,
 			);
 			path = TemirlanToDoTests;
@@ -213,11 +267,14 @@
 				020000000000000000000007 /* RootView.swift */,
 				020000000000000000000008 /* TaskListView.swift */,
 				020000000000000000000009 /* TaskRowView.swift */,
+				0200000000000000000000A8 /* TaskRowFormatting.swift */,
 				02000000000000000000000A /* AddTaskComposerView.swift */,
 				02000000000000000000000B /* TaskDetailView.swift */,
+				0200000000000000000000A9 /* TaskDetailViewState.swift */,
 				020000000000000000000017 /* AssistantView.swift */,
 				020000000000000000000018 /* AISettingsView.swift */,
 				02000000000000000000001C /* LaunchSplashView.swift */,
+				0200000000000000000000B2 /* NotificationSettingsView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -231,6 +288,17 @@
 				020000000000000000000016 /* AssistantService.swift */,
 			);
 			path = AI;
+			sourceTree = "<group>";
+		};
+		0700000000000000000000F0 /* Notifications */ = {
+			isa = PBXGroup;
+			children = (
+				0200000000000000000000AA /* NotificationCenterProtocol.swift */,
+				0200000000000000000000AB /* NotificationSettings.swift */,
+				0200000000000000000000AC /* NotificationSettingsStore.swift */,
+				0200000000000000000000B1 /* NotificationScheduler.swift */,
+			);
+			path = Notifications;
 			sourceTree = "<group>";
 		};
 		07000000000000000000000B /* TemirlanToDoWidget */ = {
@@ -380,8 +448,10 @@
 				010000000000000000000007 /* RootView.swift in Sources */,
 				010000000000000000000008 /* TaskListView.swift in Sources */,
 				010000000000000000000009 /* TaskRowView.swift in Sources */,
+				010000000000000000000032 /* TaskRowFormatting.swift in Sources */,
 				01000000000000000000000A /* AddTaskComposerView.swift in Sources */,
 				01000000000000000000000B /* TaskDetailView.swift in Sources */,
+				010000000000000000000033 /* TaskDetailViewState.swift in Sources */,
 				01000000000000000000000F /* AssistantModels.swift in Sources */,
 				010000000000000000000010 /* KeychainStore.swift in Sources */,
 				010000000000000000000011 /* FireworksClient.swift in Sources */,
@@ -390,6 +460,11 @@
 				010000000000000000000014 /* AISettingsView.swift in Sources */,
 				010000000000000000000017 /* TodayWidgetSnapshot.swift in Sources */,
 				010000000000000000000018 /* LaunchSplashView.swift in Sources */,
+				010000000000000000000034 /* NotificationCenterProtocol.swift in Sources */,
+				010000000000000000000035 /* NotificationSettings.swift in Sources */,
+				010000000000000000000036 /* NotificationSettingsStore.swift in Sources */,
+				01000000000000000000003B /* NotificationScheduler.swift in Sources */,
+				01000000000000000000003C /* NotificationSettingsView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -401,6 +476,19 @@
 				01000000000000000000000D /* TaskStorageTests.swift in Sources */,
 				010000000000000000000015 /* AssistantModelsTests.swift in Sources */,
 				010000000000000000000016 /* AssistantActionsTests.swift in Sources */,
+				01000000000000000000002A /* PropertyTesting.swift in Sources */,
+				01000000000000000000002B /* TaskItemGenerators.swift in Sources */,
+				01000000000000000000002C /* TaskItemMigrationTests.swift in Sources */,
+				01000000000000000000002D /* TaskStoreTimeTests.swift in Sources */,
+				01000000000000000000002E /* AssistantDueDateParseTests.swift in Sources */,
+				01000000000000000000002F /* AssistantSchemaTests.swift in Sources */,
+				010000000000000000000030 /* TodayWidgetSnapshotTests.swift in Sources */,
+				010000000000000000000031 /* TaskStoreSnapshotTests.swift in Sources */,
+				010000000000000000000037 /* FakeNotificationCenter.swift in Sources */,
+				010000000000000000000038 /* TaskRowFormattingTests.swift in Sources */,
+				010000000000000000000039 /* TaskDetailViewStateTests.swift in Sources */,
+				01000000000000000000003A /* NotificationSettingsTests.swift in Sources */,
+				01000000000000000000003D /* NotificationSchedulerTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

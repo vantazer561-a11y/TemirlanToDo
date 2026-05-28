@@ -28,7 +28,10 @@ struct TaskRowView: View {
                                 Label("My Day", systemImage: "sun.max")
                             }
                             if let dueDate = task.dueDate {
-                                Label(dueDate.formatted(date: .abbreviated, time: .omitted), systemImage: "calendar")
+                                Label(
+                                    formattedDue(date: dueDate, hasTime: task.dueHasTime),
+                                    systemImage: "calendar"
+                                )
                             }
                             if !task.notes.isEmpty {
                                 Image(systemName: "note.text")

@@ -5,11 +5,25 @@ public struct TodayWidgetSnapshot: Codable, Equatable {
     public var count: Int
     public var titles: [String]
     public var updatedAt: Date
+    /// Заголовок ближайшей timed-задачи на сегодня, обрезанный до 80 символов.
+    /// `nil`, если такой задачи нет. _Requirements: 9.1, 9.4, 9.5_
+    public var nextTimedTitle: String?
+    /// `dueDate` ближайшей timed-задачи на сегодня. `nil`, если такой задачи нет.
+    /// _Requirements: 9.1, 9.4, 9.5_
+    public var nextTimedDate: Date?
 
-    public init(count: Int, titles: [String], updatedAt: Date = Date()) {
+    public init(
+        count: Int,
+        titles: [String],
+        updatedAt: Date = Date(),
+        nextTimedTitle: String? = nil,
+        nextTimedDate: Date? = nil
+    ) {
         self.count = count
         self.titles = titles
         self.updatedAt = updatedAt
+        self.nextTimedTitle = nextTimedTitle
+        self.nextTimedDate = nextTimedDate
     }
 
     public static let empty = TodayWidgetSnapshot(count: 0, titles: [])

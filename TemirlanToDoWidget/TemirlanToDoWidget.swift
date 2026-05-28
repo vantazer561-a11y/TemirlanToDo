@@ -5,6 +5,26 @@ struct TodayWidgetSnapshot: Codable {
     var count: Int
     var titles: [String]
     var updatedAt: Date
+    /// Заголовок ближайшей timed-задачи на сегодня (≤ 80 символов).
+    /// `nil`, если такой задачи нет. _Requirements: 9.1, 9.6, 10.2_
+    var nextTimedTitle: String?
+    /// `dueDate` ближайшей timed-задачи на сегодня.
+    /// `nil`, если такой задачи нет. _Requirements: 9.1, 9.6, 10.2_
+    var nextTimedDate: Date?
+
+    init(
+        count: Int,
+        titles: [String],
+        updatedAt: Date,
+        nextTimedTitle: String? = nil,
+        nextTimedDate: Date? = nil
+    ) {
+        self.count = count
+        self.titles = titles
+        self.updatedAt = updatedAt
+        self.nextTimedTitle = nextTimedTitle
+        self.nextTimedDate = nextTimedDate
+    }
 
     static let empty = TodayWidgetSnapshot(count: 0, titles: [], updatedAt: Date())
 }
@@ -29,7 +49,16 @@ struct TodayTasksEntry: TimelineEntry {
 
 struct TodayTasksProvider: TimelineProvider {
     func placeholder(in context: Context) -> TodayTasksEntry {
-        TodayTasksEntry(date: Date(), snapshot: TodayWidgetSnapshot(count: 3, titles: ["Ship IPA", "Test AI", "Plan tomorrow"], updatedAt: Date()))
+        TodayTasksEntry(
+            date: Date(),
+            snapshot: TodayWidgetSnapshot(
+                count: 3,
+                titles: ["Ship IPA", "Test AI", "Plan tomorrow"],
+                updatedAt: Date(),
+                nextTimedTitle: "Митинг с командой",
+                nextTimedDate: Date().addingTimeInterval(3600)
+            )
+        )
     }
 
     func getSnapshot(in context: Context, completion: @escaping (TodayTasksEntry) -> Void) {
@@ -45,6 +74,16 @@ struct TodayTasksProvider: TimelineProvider {
 
 struct TodayTasksWidgetView: View {
     let entry: TodayTasksEntry
+
+    /// Форматтер времени для строки «Next: …». 24-часовой формат, локальная таймзона.
+    /// _Requirements: 9.7_
+    static let timeFormatter: DateFormatter = {
+        let f = DateFormatter()
+        f.locale = Locale(identifier: "en_US_POSIX")
+        f.dateFormat = "HH:mm"
+        f.timeZone = TimeZone.current
+        return f
+    }()
 
     var body: some View {
         ZStack {
@@ -83,6 +122,19 @@ struct TodayTasksWidgetView: View {
                                 .foregroundColor(.white.opacity(0.86))
                                 .lineLimit(1)
                         }
+                    }
+                }
+
+                if let nextTitle = entry.snapshot.nextTimedTitle,
+                   let nextDate = entry.snapshot.nextTimedDate {
+                    HStack(spacing: 6) {
+                        Image(systemName: "alarm")
+                            .foregroundColor(Color(red: 1.0, green: 0.78, blue: 0.0))
+                            .font(.caption2.weight(.semibold))
+                        Text("Next: \(nextTitle) в \(Self.timeFormatter.string(from: nextDate))")
+                            .font(.caption2.weight(.semibold))
+                            .foregroundColor(.white.opacity(0.9))
+                            .lineLimit(1)
                     }
                 }
 
